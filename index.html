@@ -5,7 +5,9 @@
     <script>
       navigator.serviceWorker.register("/sw.js").then(() => {
         setTimeout(() => {
-          fetch("/notes");
+          const iframe = document.createElement("iframe");
+          iframe.src = "https://fnotes-web.ctf-chal.idek.team/notes/";
+          document.body.appendChild(iframe);
         }, 1000);
       });
     </script>
