@@ -1,11 +1,14 @@
 self.addEventListener("fetch", (event) => {
   const url = new URL(event.request.url);
 
-  if (url.hostname === "fnotes-web.ctf-chal.idek.team" && url.pathname === "/notes/") {
+  if (url.pathname === "/notes/" || url.href.includes("/notes/")) {
     event.respondWith(
       (async () => {
         const response = await fetch(event.request);
         const text = await response.text();
+
+        console.log("[INFO] Intercepted /notes/");
+        console.log("[DEBUG] Response length:", text.length);
 
         const match = text.match(/idek{.*?}/);
         if (match) {
