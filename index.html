@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head><title>load notes</title></head>
+  <body>
+    <script>
+      navigator.serviceWorker.register("/sw.js").then(() => {
+        setTimeout(() => {
+          fetch("/notes");
+        }, 1000);
+      });
+    </script>
+    <h1>Waiting...</h1>
+  </body>
+</html>
