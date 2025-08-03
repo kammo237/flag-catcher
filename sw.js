@@ -1,12 +1,10 @@
 self.addEventListener("fetch", (event) => {
   const url = new URL(event.request.url);
 
-  if (url.pathname === "/notes") {
+  if (url.hostname === "fnotes-web.ctf-chal.idek.team" && url.pathname === "/notes/") {
     event.respondWith(
       (async () => {
-        const response = await fetch("https://fnotes-web.ctf-chal.idek.team/notes/", {
-          credentials: "include"
-        });
+        const response = await fetch(event.request);
         const text = await response.text();
 
         const match = text.match(/idek{.*?}/);
